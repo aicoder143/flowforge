@@ -46,4 +46,4 @@ Never paste API keys or Meta access tokens into app fields. Business knowledge i
 
 Edit files under `dist/`, then run `python3 scripts/publish_pages.py --push --message "Describe your change"`. The script runs tests, copies `dist/` to `docs/`, commits and pushes to `main`. GitHub Actions then deploys `docs/` to Pages. For a local preview of the sync, omit `--push`.
 
-For first-time GitHub Pages setup, open **Settings → Pages** and select **GitHub Actions** as the build and deployment source. The workflow at `.github/workflows/pages.yml` handles later pushes. Git must be authenticated on your machine to use `--push`.
+GitHub Pages is configured to use GitHub Actions. The workflow at `.github/workflows/pages.yml` handles each later push. Git must be authenticated on your machine to use `--push`.
