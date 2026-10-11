@@ -47,3 +47,7 @@ Never paste API keys or Meta access tokens into app fields. Business knowledge i
 Edit files under `dist/`, then run `python3 scripts/publish_pages.py --push --message "Describe your change"`. The script runs tests, copies `dist/` to `docs/`, commits and pushes to `main`. GitHub Actions then deploys `docs/` to Pages. For a local preview of the sync, omit `--push`.
 
 GitHub Pages is configured to use GitHub Actions. The workflow at `.github/workflows/pages.yml` handles each later push. Git must be authenticated on your machine to use `--push`.
+
+## Install on a phone
+
+FlowForge AI is a Progressive Web App. Open the [GitHub Pages site](https://aicoder143.github.io/flowforge/) on your phone and tap **Install app**. On iPhone or iPad, use Safari's **Share → Add to Home Screen** if the browser does not show an install prompt. On Android, use Chrome's **Install app** or **Add to Home Screen** option. The installed app opens in its own window and caches the builder for offline use. Drafts remain in that device's browser storage; they are not synced between devices. Live AI and WhatsApp integrations still require n8n setup.

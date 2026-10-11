@@ -17,3 +17,20 @@ $('#importJson').addEventListener('change',async e=>{const file=e.target.files[0
 $('#chatForm').addEventListener('submit',e=>{e.preventDefault();const text=$('#chatText').value.trim();if(!text)return;const wrap=$('#chatMessages');const user=document.createElement('div');user.className='bubble user';user.textContent=text;wrap.append(user);const bot=document.createElement('div');bot.className='bubble bot';bot.textContent=simulate(state,text);wrap.append(bot);wrap.scrollTop=wrap.scrollHeight;$('#chatText').value=''});
 $('#resetDraft').addEventListener('click',()=>{localStorage.removeItem(key);state={...defaults};sync();generate();toast('Draft reset')});
 $('#templateSelect').innerHTML=templates.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');sync();renderTemplates();renderJson();
+
+// Browser installation is optional; the builder remains fully usable in a tab.
+let installPrompt;
+const installButton=$('#installApp');
+const installGuide=$('#installGuide');
+const installed=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+if(installed())installButton.hidden=true;
+window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;installButton.hidden=false});
+window.addEventListener('appinstalled',()=>{installPrompt=undefined;installButton.hidden=true;installGuide.hidden=false;installGuide.textContent='FlowForge AI is installed on this device.'});
+installButton.addEventListener('click',async()=>{
+  if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=undefined;return}
+  installGuide.hidden=false;
+  installGuide.textContent=/iPad|iPhone|iPod/.test(navigator.userAgent)
+    ?'To install on iPhone or iPad: open this page in Safari, tap Share, then Add to Home Screen.'
+    :'To install: open your browser menu and choose Install app or Add to Home Screen.';
+});
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
